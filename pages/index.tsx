@@ -5,6 +5,10 @@ import Footer from "@/components/footer";
 import ScrollImage from "@/components/scrollImage";
 import { useEffect, useState } from "react";
 import Amenities from "@/components/amenties";
+import ActivitiesSlider from "@/components/activitiesSlider";
+import Gallery from "@/components/gallery";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Home() {
   const heroImages = [
@@ -21,6 +25,12 @@ export default function Home() {
     }, 5000);
     return () => clearInterval(timer);
   }, []);
+  useEffect(() => {
+  AOS.init({
+    duration: 1000, 
+    once: true,     
+  });
+}, []);
 
   /* PACKAGES / SERVICES */
   const tours = [
@@ -28,7 +38,7 @@ export default function Home() {
       id: 1,
       title: "Luxury Resort Stay",
       description: "Premium rooms surrounded by nature and scenic views.",
-      image: "/images/hotel2.jpg",
+      image: "/images/hotel.jpg",
     },
     {
       id: 2,
@@ -46,7 +56,7 @@ export default function Home() {
       id: 4,
       title: "Book Your Party Hall",
       description: "Perfect venues for celebrations.",
-      image: "/images/partyhall.jpg",
+      image: "/images/hotel.jpg",
     },
   ];
 
@@ -126,20 +136,20 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative z-10 text-center max-w-3xl px-6">
-          <h1 className="text-6xl font-bold mb-4">ESCAPE TO NATURE</h1>
-          <h2 className="text-3xl mb-6">LUXURY • COMFORT • SERENITY</h2>
-          <p className="mb-8 text-lg">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">ESCAPE TO NATURE</h1>
+          <h2 className="text-xl md:text-3xl mb-6">LUXURY • COMFORT • SERENITY</h2>
+          <p className="mb-8 text-base md:text-lg">
             Premium resort stays, holiday packages & memorable experiences.
           </p>
 
-          <div className="flex justify-center gap-4">
-            <Link href="#tours" className="btn">
+          <div className="flex justify-center gap-4 flex-wrap">
+            <Link href="#tours" className="btn px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
               Explore Packages
             </Link>
 
             <a
               href="https://api.whatsapp.com/send?phone=97471105550"
-              className="px-8 py-3 rounded-md font-bold bg-[#3d2e71] text-white hover:bg-[#932c85] transition"
+              className="px-6 py-2 md:px-8 md:py-3 rounded-md font-bold bg-[#3d2e71] text-white hover:bg-[#932c85] transition text-sm md:text-base"
             >
               Book Now
             </a>
@@ -148,10 +158,10 @@ export default function Home() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="py-20 px-6 bg-white">
+      <section id="about" className="py-20 px-6 bg-white" data-aos="fade-up">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-4xl font-bold text-[#3d2e71] mb-6">
+          <div data-aos="fade-right">
+            <h2 className="text-2xl md:text-4xl font-bold text-[#3d2e71] mb-6">
               Premium Resort & Holiday Experiences
             </h2>
             <p className="text-gray-700 mb-4">
@@ -161,29 +171,30 @@ export default function Home() {
               Whether it’s a family vacation, romantic getaway or group retreat,
               we create experiences you’ll cherish forever.
             </p>
-
             <Link
-              href="/about"
-              className="inline-block bg-[#932c85] text-white px-6 py-3 rounded hover:bg-[#3d2e71] transition"
-            >
-              Know More
-            </Link>
+                    href="/about"
+                    className="inline-block bg-[#932c85] text-white !text-white px-6 py-3 rounded hover:bg-[#3d2e71] transition"
+                  >
+                    Know More
+                  </Link>
           </div>
 
-          <div className="h-80">
-            <ScrollImage src="/images/hotel.jpg" alt="Luxury Resort" />
-          </div>
-        </div>
-      </section>
+    <div className="h-56 md:h-80" data-aos="fade-left">
+      <ScrollImage src="/images/hotel.jpg" alt="Luxury Resort" />
+    </div>
+    
+  </div>
+</section>
+
 
       {/* PARALLAX */}
       <section className="parallax h-[60vh] flex items-center justify-center text-white text-center">
         <div className="bg-black/50 w-full h-full flex items-center justify-center">
           <div>
-            <h2 className="text-5xl font-bold mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
               Where Nature Meets Luxury
             </h2>
-            <p className="text-lg">
+            <p className="text-base md:text-lg">
               Wake up to breathtaking views and peaceful surroundings
             </p>
           </div>
@@ -196,26 +207,15 @@ export default function Home() {
           <p className="tracking-widest text-sm text-gray-500 uppercase">
             Explore & Experience
           </p>
-          <h2 className="text-5xl font-bold text-black mt-2">ACTIVITIES</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-black mt-2">ACTIVITIES</h2>
         </div>
 
-        <div className="activities-slider">
-          {activities.map((item) => (
-            <div key={item.title} className="activity-card">
-              <img
-                src={item.image}
-                alt={item.title}
-                className="activity-img"
-              />
-              <p className="mt-4 text-lg text-gray-800">{item.title}</p>
-            </div>
-          ))}
-        </div>
+        <ActivitiesSlider activities={activities} />
       </section>
 
       {/* WHY CHOOSE US */}
       <section className="py-20 px-6 bg-gray-50">
-        <h2 className="text-4xl font-bold text-center text-[#3d2e71] mb-12">
+          <h2 className="text-2xl md:text-4xl font-bold text-center text-[#3d2e71] mb-12">
           Why Choose Us
         </h2>
 
@@ -234,15 +234,15 @@ export default function Home() {
         </div>
       </section>
        {/* ROOM TYPES */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white" data-aos="fade-up">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-12 text-center" data-aos="fade-down">
             Our Exclusive Room Types
           </h2>
 
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Single Room */}
-            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
               <img
                 src="/images/hotel.jpg"
                 alt="Single Room"
@@ -257,7 +257,7 @@ export default function Home() {
             </div>
 
             {/* Double Room */}
-            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden" data-aos="zoom-in" data-aos-delay="200">
               <img
                 src="/images/slide3.jpg"
                 alt="Double Room"
@@ -272,7 +272,7 @@ export default function Home() {
             </div>
 
             {/* Family Cottage */}
-            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden" data-aos="zoom-in" data-aos-delay="300">
               <img
                 src="/images/slide1.jpg"
                 alt="Family Cottage"
@@ -287,7 +287,7 @@ export default function Home() {
             </div>
 
             {/* Pillar House */}
-            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden" data-aos="zoom-in" data-aos-delay="400">
               <img
                 src="/images/hotel.jpg"
                 alt="Pillar House"
@@ -302,7 +302,7 @@ export default function Home() {
             </div>
 
             {/* Hut */}
-            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden" data-aos="zoom-in" data-aos-delay="500">
               <img
                 src="/images/slide3.jpg"
                 alt="Hut"
@@ -317,7 +317,7 @@ export default function Home() {
             </div>
 
             {/* Tent */}
-            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden" data-aos="zoom-in" data-aos-delay="600">
               <img
                 src="/images/slide1.jpg"
                 alt="Tent"
@@ -334,9 +334,10 @@ export default function Home() {
         </div>
       </section>
 
+
             {/* PACKAGES */}
             <section id="tours" className="py-20 px-6 bg-white">
-              <h2 className="text-4xl font-bold text-center text-[#3d2e71] mb-12">
+              <h2 className="text-2xl md:text-4xl font-bold text-center text-[#3d2e71] mb-12">
                 Our Packages & Services
               </h2>
 
@@ -364,158 +365,77 @@ export default function Home() {
 
       <Amenities />
       {/* LOCAL ATTRACTIONS */}
-    <section className="py-24 bg-[#f5f7e6]">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-gray-900 mb-12">
-          Explore Local Attractions Near Our Resort
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Card 1 */}
-          <div className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
-            <img
-              src="/images/slide1.jpg"
-              alt="Chembra Peak"
-              className="h-56 w-full object-cover"
-            />
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-3">Chembra Peak</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Chembra Peak is the highest point in Wayanad reaching 2,100 meters
-                above sea level. Popular for trekking through tea plantations and
-                lush forests.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
-            <img
-              src="/images/slide1.jpg"
-              alt="Banasura Dam"
-              className="h-56 w-full object-cover"
-            />
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-3">Banasura Dam</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                The Banasura Sagar Dam is the largest earthen dam in India and the
-                second largest in Asia, offering breathtaking views.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
-            <img
-              src="/images/slide1.jpg"
-              alt="Pookode Lake"
-              className="h-56 w-full object-cover"
-            />
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-3">Pookode Lake</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Pookode Lake is a serene freshwater lake known for its natural charm
-                and unique map-shaped structure.
-              </p>
-            </div>
-          </div>
-        </div>
-
-            {/* VIEW ALL BUTTON */}
-            <div className="flex justify-center mt-14">
-              <Link
-                href="/attraction"
-                className="bg-green-800 text-white px-10 py-3 rounded-md font-semibold hover:bg-green-900 transition"
-              >
-                VIEW ALL
-              </Link>
-            </div>
-          </div>
-      </section>
-    {/* GALLERY SECTION */}
-<section className="py-24 bg-white">
-  
-    <div className="relative overflow-hidden rounded-xl shadow-xl group">
-
-    <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">
-      Resort Gallery
+      <section className="py-24 bg-[#f5f7e6]" data-aos="fade-up">
+  <div className="max-w-7xl mx-auto px-6">
+    <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center" data-aos="fade-down">
+      Explore Local Attractions Near Our Resort
     </h2>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {/* Image 1 */}
-      <div className="overflow-hidden rounded-lg shadow-lg">
+    <div className="grid md:grid-cols-3 gap-8">
+      {/* Card 1 */}
+      <div className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden" data-aos="flip-left" data-aos-delay="100">
         <img
           src="/images/slide1.jpg"
-          alt="Resort Image 1"
-          className="w-full h-56 object-cover transform transition-transform duration-300 hover:scale-105"
+          alt="Chembra Peak"
+          className="h-56 w-full object-cover"
         />
+        <div className="p-6">
+          <h3 className="text-xl font-bold mb-3">Chembra Peak</h3>
+          <p className="text-gray-600 text-sm leading-relaxed">
+            Chembra Peak is the highest point in Wayanad reaching 2,100 meters
+            above sea level. Popular for trekking through tea plantations and
+            lush forests.
+          </p>
+        </div>
       </div>
 
-      {/* Image 2 */}
-      <div className="overflow-hidden rounded-lg shadow-lg">
-        <img
-          src="/images/resort.jpg"
-          alt="Resort Image 2"
-          className="w-full h-72 object-cover transform transition-transform duration-300 hover:scale-105"
-        />
-      </div>
-
-      {/* Image 3 */}
-      <div className="overflow-hidden rounded-lg shadow-lg">
-        <img
-          src="/images/slide2.avif"
-          alt="Resort Image 3"
-          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-105"
-        />
-      </div>
-
-      {/* Image 4 */}
-      <div className="overflow-hidden rounded-lg shadow-lg">
-        <img
-          src="/images/slide3.jpg"
-          alt="Resort Image 4"
-          className="w-full h-80 object-cover transform transition-transform duration-300 hover:scale-105"
-        />
-      </div>
-
-      {/* Image 5 */}
-      <div className="overflow-hidden rounded-lg shadow-lg">
-        <img
-          src="/images/hotel.jpg"
-          alt="Resort Image 5"
-          className="w-full h-56 object-cover transform transition-transform duration-300 hover:scale-105"
-        />
-      </div>
-
-      {/* Image 6 */}
-      <div className="overflow-hidden rounded-lg shadow-lg">
+      {/* Card 2 */}
+      <div className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden" data-aos="flip-up" data-aos-delay="200">
         <img
           src="/images/slide1.jpg"
-          alt="Resort Image 6"
-          className="w-full h-72 object-cover transform transition-transform duration-300 hover:scale-105"
+          alt="Banasura Dam"
+          className="h-56 w-full object-cover"
         />
+        <div className="p-6">
+          <h3 className="text-xl font-bold mb-3">Banasura Dam</h3>
+          <p className="text-gray-600 text-sm leading-relaxed">
+            The Banasura Sagar Dam is the largest earthen dam in India and the
+            second largest in Asia, offering breathtaking views.
+          </p>
+        </div>
       </div>
 
-      {/* Image 7 */}
-      <div className="overflow-hidden rounded-lg shadow-lg">
+      {/* Card 3 */}
+      <div className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden" data-aos="flip-right" data-aos-delay="300">
         <img
           src="/images/slide1.jpg"
-          alt="Resort Image 7"
-          className="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-105"
+          alt="Pookode Lake"
+          className="h-56 w-full object-cover"
         />
+        <div className="p-6">
+          <h3 className="text-xl font-bold mb-3">Pookode Lake</h3>
+          <p className="text-gray-600 text-sm leading-relaxed">
+            Pookode Lake is a serene freshwater lake known for its natural charm
+            and unique map-shaped structure.
+          </p>
+        </div>
       </div>
+    </div>
 
-      {/* Image 8 */}
-      <div className="overflow-hidden rounded-lg shadow-lg">
-        <img
-          src="/images/slide1.jpg"
-          alt="Resort Image 8"
-          className="w-full h-80 object-cover transform transition-transform duration-300 hover:scale-105"
-        />
-      </div>
+    {/* VIEW ALL BUTTON */}
+    <div className="flex justify-center mt-14" data-aos="zoom-in" data-aos-delay="400">
+      <Link
+        href="/attraction"
+        className="bg-green-800 text-white px-10 py-3 rounded-md font-semibold hover:bg-green-900 transition"
+      >
+        VIEW ALL
+      </Link>
     </div>
   </div>
 </section>
+
+    {/* GALLERY SECTION */}
+    <Gallery />
 
 
 
