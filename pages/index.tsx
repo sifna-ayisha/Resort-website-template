@@ -9,7 +9,7 @@ import ActivitiesSlider from "@/components/activitiesSlider";
 import Gallery from "@/components/gallery";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import ScrollButtons from "@/components/scrollbtn";
 export default function Home() {
   const heroImages = [
     "/images/slide1.jpg",
@@ -454,7 +454,7 @@ export default function Home() {
           ))}
         </div>
       </section>
-
+      <ScrollButtons />
       <Footer />
     </>
   );
